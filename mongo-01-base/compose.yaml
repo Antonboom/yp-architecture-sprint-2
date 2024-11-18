@@ -1,11 +1,16 @@
 services:
   mongodb1:
+    platform: linux/amd64
     container_name: mongodb1
-    image: dh-mirror.gitverse.ru/mongo:latest
+    # WARNING: MongoDB 5.0+ requires a CPU with AVX support, and your current system does not appear to have that!
+    image: dh-mirror.gitverse.ru/mongo:4.4.18
     volumes:
       - mongodb1_data_container:/data/db
+    ports:
+      - 27017:27017
 
   pymongo_api:
+    platform: linux/amd64
     container_name: pymongo_api
     build: 
       context: api_app
